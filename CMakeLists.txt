@@ -7,4 +7,4 @@ include_directories(..)
 
 add_executable(Project_ROW
         main.c
-        motor.h)
+        motor.h Wheel_encoder/waterPomp.cpp Water_pomp/waterPomp.c)
