@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    printf("Water POMP is aan\n");
+    printf("Water POMP \n");
     wiringPiSetup ();
     pinMode (POMP, OUTPUT);
 
