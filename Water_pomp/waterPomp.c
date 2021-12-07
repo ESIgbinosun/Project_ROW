@@ -2,41 +2,37 @@
 #include <wiringPi.h>
 
 #define POMP    7
+#define HIGH    1
+#define LOW     0
 
-int main(void)
-{
-    printf("Water POMP is aan\n");
-    wiringPiSetup ();
-    pinMode (POMP, OUTPUT);
+int main(void) {
+    printf("Water POMP is online\n");
+    wiringPiSetup();
+    pinMode(POMP, OUTPUT);
 
-    char chr;
+    while (1) {
 
-    printf("press S to activate pomp\n");
-    scanf("%c",& chr);
-    if(chr=='s'){
-        digitalWrite (POMP,1);
-    }else{
-        digitalWrite (POMP,0);
+        char chr = getchar();
+
+        switch (chr) {
+            case 's':
+                printf("Pomp activated\n");
+                digitalWrite(POMP, HIGH);
+                break;
+
+            case 'd':
+                printf("Pomp deactivated\n");
+                digitalWrite(POMP, LOW);
+                break;
+
+            default:
+                printf("Pomp status\n");
+        }
+
+
     }
+}
 
-//    else{
-//        digitalWrite (POMP,0);
-//    }
-
-
-
-//    for (;;){
-//        printf("Pomp on\n");
-//        digitalWrite (POMP,1);
-//        //delay (3000);
-//        //prinf("Pomp off\n")
-//        //digitalWrite (POMP,0);
-//        //delay (3000);
-//
-//
-//    }
-    return 0;
-}//
 // Created by stefano on 18/11/2021.
 //
 
