@@ -1,54 +1,59 @@
 
 
+
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include <stdbool.h>
 
 
 
 
-////int speedSensor= 14;
-//unsigned int counter= 0;
-//unsigned int diskHole = 20;
-//
-//
-//void setup(){
-//    wiringPiSetup(); // setup the library
-//    pinMode(speedSensor, OUTPUT); // configure GPIO14 as an output
-//
-//}
-//void count(){
-//    counter++;
-//}
-//void loop() {
-//    for(;;){
-//        if(speedSensor==1){
-//            count();
-//            printf("me %d",counter);
-//        }
-//    }
-//
-//}
+
+#define encoderOutput 0
 static volatile int globalCounter ;
+int rpm;
+
+int interval = 1000;
+long previousMillis = 0;
+long currentMillis = 0;
+//bool measureRpm = false;
+
 
 //Interrupt service routine:
-void myInterrupt0 (void) { ++globalCounter ;printf("%d ",globalCounter);fflush(stdout); }
+//static volatile int RPM = globalCounter *
+void myInterrupt0 (void) { ++globalCounter;fflush(stdout); }
 
 
 int main(void)
 {
     wiringPiSetup();
-    pullUpDnControl(0,PUD_DOWN);
+    pullUpDnControl(encoderOutput,PUD_DOWN);
 
     //initialisation
-    wiringPiISR (0, INT_EDGE_FALLING, &myInterrupt0) ;
-
+    wiringPiISR (encoderOutput, INT_EDGE_FALLING, &myInterrupt0) ; //myInterrupt0
+    previousMillis = millis();
 
     while(1)
     {
+        currentMillis = millis();
+        if (currentMillis - previousMillis > interval) {
+            previousMillis = currentMillis;
+
+            rpm = (float) (globalCounter * 60 / 20);
+
+            if(rpm > 0){
+                printf("RPM: %d \n", rpm );
+
+            }
+            globalCounter = 0;
+
+            //printf("RPM: %d \n", rpm , globalCounter);
+        }
+        //printf("RPM: %d \n",globalCounter);
 
         usleep(500);
 
