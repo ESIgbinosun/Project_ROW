@@ -25,7 +25,7 @@ long currentMillis = 0;
 
 //Interrupt service routine:
 //static volatile int RPM = globalCounter *
-void myInterrupt0 (void) { ++globalCounter;fflush(stdout); }
+void wheelInterrupt(void) { ++globalCounter;fflush(stdout); }
 
 
 int main(void)
@@ -34,7 +34,7 @@ int main(void)
     pullUpDnControl(encoderOutput,PUD_DOWN);
 
     //initialisation
-    wiringPiISR (encoderOutput, INT_EDGE_FALLING, &myInterrupt0) ; //myInterrupt0
+    wiringPiISR (encoderOutput, INT_EDGE_FALLING, &wheelInterrupt) ;
     previousMillis = millis();
 
     while(1)
