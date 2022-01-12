@@ -24,7 +24,7 @@ long currentMillis = 0;
 
 
 //Interrupt service routine:
-//static volatile int RPM = globalCounter *
+
 void wheelInterrupt(void) { ++globalCounter;fflush(stdout); }
 
 

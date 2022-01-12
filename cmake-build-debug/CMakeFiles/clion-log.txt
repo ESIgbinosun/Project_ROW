@@ -4,4 +4,3 @@ CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
 
 
 -- Configuring incomplete, errors occurred!
-See also "/tmp/tmp.0e13AMTQTV/cmake-build-debug/CMakeFiles/CMakeOutput.log".
