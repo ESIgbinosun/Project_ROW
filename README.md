@@ -20,3 +20,4 @@ This is the ROW project of IT201-Team 3
 - Bilal Malik
 - Joris Brouwer
 - Nassim Mengat
+- Stefano Igbinosun
